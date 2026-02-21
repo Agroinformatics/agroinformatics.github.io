@@ -83,7 +83,7 @@
         .header-container {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center on mobile */
+            align-items: center;
             text-align: center;
             gap: 20px;
         }
@@ -100,7 +100,7 @@
         .profile-img {
             width: 180px;
             height: 180px;
-            border-radius: 50%; /* Circular crop */
+            border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--uiuc-orange);
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -127,7 +127,7 @@
             display: flex;
             gap: 25px;
             flex-wrap: wrap;
-            justify-content: center; /* Center nav on mobile */
+            justify-content: center;
         }
 
         nav a {
@@ -307,11 +307,11 @@
             }
             
             nav ul {
-                justify-content: flex-start; /* Align nav left on desktop */
+                justify-content: flex-start;
             }
 
             .profile-wrapper {
-                margin-left: 40px; /* Space between text and image */
+                margin-left: 40px;
             }
 
             .footer-content {
@@ -333,9 +333,10 @@
                     <ul>
                         <li><a href="#about">About</a></li>
                         <li><a href="#research">Research</a></li>
+                        <li><a href="#teaching">Teaching</a></li>
                         <li><a href="#team">Team</a></li>
                         <li><a href="#publications">Publications</a></li>
-                        <li><a href="cv.html">CV</a></li>
+                        <li><a href="https://agroinformatics.github.io/cv_NFM/" target="_blank">CV</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
@@ -351,7 +352,7 @@
         <div class="container">
             <h2>About the Lab</h2>
             <div class="bio-text">
-                <p>Nicolas Martin improves agricultural decision-making by integrating spatial analytics with geospatial intelligence. His research develops participatory frameworks connecting farmers and agronomists as citizen scientists. He prioritizes open-source tools to democratize access to advanced algorithms and complex data. His program focuses on four core areas: on-farm experimentation for nitrogen optimization, high-throughput phenotyping and crop modeling, system thinking in agriculture, and the digitization of farm management records. As an educator he combines leadership training with open-source statistical resources to support diverse student populations. He serves on the American Society of Agronomy board to advance accessible professional training.</p>
+                <p>Nicolas Martin improves agricultural decision-making by integrating spatial analytics with geospatial intelligence. His research develops participatory frameworks connecting farmers and agronomists as citizen scientists. He prioritizes open-source tools to democratize access to advanced algorithms and complex data. His program focuses on on-farm experimentation for nitrogen optimization, high-throughput phenotyping and crop modeling, system thinking in agriculture, and the digitization of farm management records. As an educator he combines leadership training with open-source statistical resources to support diverse student populations. He serves on the American Society of Agronomy board to advance accessible professional training.</p>
             </div>
         </div>
     </section>
@@ -419,75 +420,27 @@
         </div>
     </section>
 
+    <!-- NEW TEACHING SECTION -->
+    <section id="teaching" class="research-section" style="background-color: var(--gray-light);">
+        <div class="container">
+            <h2>Teaching</h2>
+            <div id="teaching-grid" class="research-grid"></div>
+        </div>
+    </section>
+
     <section id="team" class="team-section">
         <div class="container">
             <h2>Team & Alumni</h2>
             
             <p><strong>Current Graduate Supervision</strong></p>
-            <div class="team-list">
-                <div class="team-member">
-                    <div class="member-info">Catherine Gilbert (PhD, Expected 2026)</div>
-                    <div class="member-links">
-                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-info">Emine Senkardesler (PhD, Expected 2027)</div>
-                    <div class="member-links">
-                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-info">John Myers (PhD, Expected 2027)</div>
-                    <div class="member-links">
-                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-info">Graham Bishop (MS, Expected 2026)</div>
-                    <div class="member-links">
-                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-            </div>
+            <!-- Data loaded from json via js/render-team.js -->
+            <div id="team-current" class="team-list"></div>
             
             <br>
             
             <p><strong>Alumni</strong></p>
-            <div class="team-list">
-                <div class="team-member">
-                    <div class="member-info">Iris Chow (MS Bioinformatics, 2025)</div>
-                    <div class="member-links">
-                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-info">Germán Mandrini (PhD, 2021)</div>
-                    <div class="member-links">
-                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-info">Alexandre Barbosa (PhD, 2020)</div>
-                    <div class="member-links">
-                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-info">Rodrigo Trevisan (PhD, 2020)</div>
-                    <div class="member-links">
-                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-            </div>
+            <!-- Data loaded from json via js/render-team.js -->
+            <div id="team-alumni" class="team-list"></div>
         </div>
     </section>
 
@@ -540,5 +493,8 @@
         </div>
     </footer>
 
+    <!-- Scripts to render JSON data -->
+    <script src="js/render-teaching.js"></script>
+    <script src="js/render-team.js"></script>
 </body>
 </html>

@@ -1,0 +1,22 @@
+[
+  {
+    "title": "CPSC 241 – Introduction to Applied Statistics",
+    "description": "Introduces core statistical concepts and applied methods for analyzing real-world data across scientific domains.",
+    "links": {
+      "syllabus": "",
+      "github": "",
+      "canvas": "",
+      "slides": ""
+    }
+  },
+  {
+    "title": "CPSC 444 – Spatial Analytics",
+    "description": "Covers spatial data workflows, geostatistical methods, and map-based analysis for decision support.",
+    "links": {
+      "syllabus": "",
+      "github": "",
+      "canvas": "",
+      "slides": ""
+    }
+  }
+]

@@ -1,0 +1,86 @@
+{
+  "current": [
+    {
+      "name": "Catherine Gilbert",
+      "role": "PhD, Expected 2026",
+      "links": {
+        "linkedin": "#",
+        "github": "#",
+        "orcid": "",
+        "email": ""
+      }
+    },
+    {
+      "name": "Emine Senkardesler",
+      "role": "PhD, Expected 2027",
+      "links": {
+        "linkedin": "#",
+        "github": "#",
+        "orcid": "",
+        "email": ""
+      }
+    },
+    {
+      "name": "John Myers",
+      "role": "PhD, Expected 2027",
+      "links": {
+        "linkedin": "#",
+        "github": "#",
+        "orcid": "",
+        "email": ""
+      }
+    },
+    {
+      "name": "Graham Bishop",
+      "role": "MS, Expected 2026",
+      "links": {
+        "linkedin": "#",
+        "github": "#",
+        "orcid": "",
+        "email": ""
+      }
+    }
+  ],
+  "alumni": [
+    {
+      "name": "Iris Chow",
+      "role": "MS Bioinformatics, 2025",
+      "links": {
+        "linkedin": "#",
+        "github": "#",
+        "orcid": "",
+        "email": ""
+      }
+    },
+    {
+      "name": "Germán Mandrini",
+      "role": "PhD, 2021",
+      "links": {
+        "linkedin": "#",
+        "github": "#",
+        "orcid": "",
+        "email": ""
+      }
+    },
+    {
+      "name": "Alexandre Barbosa",
+      "role": "PhD, 2020",
+      "links": {
+        "linkedin": "#",
+        "github": "#",
+        "orcid": "",
+        "email": ""
+      }
+    },
+    {
+      "name": "Rodrigo Trevisan",
+      "role": "PhD, 2020",
+      "links": {
+        "linkedin": "#",
+        "github": "#",
+        "orcid": "",
+        "email": ""
+      }
+    }
+  ]
+}
