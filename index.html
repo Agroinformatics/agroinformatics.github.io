@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicolas Martin Lab | Quantitative Agronomy & Spatial Analytics</title>
+    <!-- Add Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --uiuc-blue: #13294B;
+            --uiuc-orange: #E84A27;
+            --text-dark: #2D2926;
+            --gray-light: #F8F9FA;
+            --white: #FFFFFF;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            color: var(--uiuc-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 3px solid var(--uiuc-orange);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-top: 2rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            max-width: 800px;
+        }
+
+        a {
+            color: var(--uiuc-blue);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--uiuc-orange);
+            text-decoration: underline;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            padding: 40px 0;
+            border-bottom: 5px solid var(--uiuc-blue);
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center on mobile */
+            text-align: center;
+            gap: 20px;
+        }
+
+        .header-text {
+            flex: 1;
+        }
+
+        /* Profile Image Styles */
+        .profile-wrapper {
+            flex-shrink: 0;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%; /* Circular crop */
+            object-fit: cover;
+            border: 4px solid var(--uiuc-orange);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .lab-title {
+            color: var(--uiuc-blue);
+            margin-bottom: 5px;
+        }
+
+        .field {
+            font-size: 1.2rem;
+            color: var(--uiuc-orange);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center; /* Center nav on mobile */
+        }
+
+        nav a {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        nav a:hover {
+            color: var(--uiuc-orange);
+        }
+
+        /* Hero / About */
+        .about-section {
+            padding: 60px 0;
+            background-color: var(--gray-light);
+        }
+
+        .bio-text {
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        /* Research Areas */
+        .research-section {
+            padding: 60px 0;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .research-card {
+            border: 1px solid var(--border-color);
+            padding: 0; 
+            transition: transform 0.2s;
+            overflow: hidden; 
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .research-card:hover {
+            border-color: var(--uiuc-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .research-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--uiuc-blue);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .card-content h3 {
+            color: var(--uiuc-orange);
+            font-size: 1.15rem;
+            border-bottom: none;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        /* Team */
+        .team-section {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+
+        .team-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .team-member {
+            padding: 15px;
+            border-left: 4px solid var(--uiuc-blue);
+            background: var(--gray-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .member-info {
+            margin-bottom: 10px;
+        }
+        
+        .member-links {
+            display: flex;
+            gap: 15px;
+            font-size: 1.2rem;
+        }
+
+        .member-links a {
+            color: var(--text-dark);
+            opacity: 0.6;
+            transition: opacity 0.2s, color 0.2s;
+        }
+
+        .member-links a:hover {
+            opacity: 1;
+            color: var(--uiuc-orange);
+            text-decoration: none;
+        }
+
+        /* Publications */
+        .pubs-section {
+            padding: 60px 0;
+            background-color: var(--gray-light);
+        }
+
+        .pub-entry {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            text-indent: -20px;
+            font-size: 0.95rem;
+        }
+
+        .highlight-name {
+            font-weight: 700;
+            color: var(--uiuc-blue);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--uiuc-blue);
+            color: var(--white);
+            padding: 50px 0;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            margin-right: 20px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .footer-links a:hover {
+            color: var(--uiuc-orange);
+            border-bottom-color: var(--uiuc-orange);
+            text-decoration: none;
+        }
+
+        .affiliations {
+            font-size: 0.85rem;
+            color: #ccc;
+            margin-top: 20px;
+        }
+
+        .affiliations p {
+            margin-bottom: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                text-align: left;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            nav ul {
+                justify-content: flex-start; /* Align nav left on desktop */
+            }
+
+            .profile-wrapper {
+                margin-left: 40px; /* Space between text and image */
+            }
+
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="header-text">
+                <h1 class="lab-title">Nicolas Martin Lab</h1>
+                <div class="field">Quantitative Agronomy & Spatial Analytics</div>
+                <nav>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#research">Research</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#publications">Publications</a></li>
+                        <li><a href="cv.html">CV</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- PROFILE PICTURE: Replace src with your image filename (e.g., "profile.jpg") -->
+            <div class="profile-wrapper">
+                <img src="https://placehold.co/180x180/13294B/FFFFFF?text=NM" alt="Nicolas Martin" class="profile-img">
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>About the Lab</h2>
+            <div class="bio-text">
+                <p>Nicolas Martin improves agricultural decision-making by integrating spatial analytics with geospatial intelligence. His research develops participatory frameworks connecting farmers and agronomists as citizen scientists. He prioritizes open-source tools to democratize access to advanced algorithms and complex data. His program focuses on four core areas: on-farm experimentation for nitrogen optimization, high-throughput phenotyping and crop modeling, system thinking in agriculture, and the digitization of farm management records. As an educator he combines leadership training with open-source statistical resources to support diverse student populations. He serves on the American Society of Agronomy board to advance accessible professional training.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="research" class="research-section">
+        <div class="container">
+            <h2>Core Research Areas</h2>
+            <div class="research-grid">
+                
+                <!-- CARD 1 -->
+                <div class="research-card">
+                    <img src="https://placehold.co/600x400/E84A27/FFFFFF?text=On-Farm+Exp" alt="On-Farm Experimentation" class="research-img">
+                    <div class="card-content">
+                        <h3>On-Farm Experimentation</h3>
+                        <p>Optimizing nitrogen management through large-scale, decentralized trials conducted directly on commercial farms.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="research-card">
+                    <img src="https://placehold.co/600x400/13294B/FFFFFF?text=Phenotyping" alt="High-Throughput Phenotyping" class="research-img">
+                    <div class="card-content">
+                        <h3>High-Throughput Phenotyping</h3>
+                        <p>Utilizing aerial imaging and remote sensing to rapidly assess plant traits and performance in field conditions.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="research-card">
+                    <img src="https://placehold.co/600x400/E84A27/FFFFFF?text=Crop+Modeling" alt="Crop Modeling" class="research-img">
+                    <div class="card-content">
+                        <h3>Crop Modeling</h3>
+                        <p>Developing algorithms and simulation models to predict crop performance and improve adaptation strategies.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 4 -->
+                <div class="research-card">
+                    <img src="https://placehold.co/600x400/13294B/FFFFFF?text=Systems+Thinking" alt="Systems Thinking" class="research-img">
+                    <div class="card-content">
+                        <h3>Systems Thinking</h3>
+                        <p>Applying holistic frameworks to solve complex agricultural challenges by analyzing the interactions between agronomic, environmental, and management factors.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 5 -->
+                <div class="research-card">
+                    <img src="https://placehold.co/600x400/E84A27/FFFFFF?text=Digital+Records" alt="Digital Records" class="research-img">
+                    <div class="card-content">
+                        <h3>Digital Records</h3>
+                        <p>Developing systems for the digitization and analysis of farm management records to fuel data-driven agronomy.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 6 -->
+                <div class="research-card">
+                    <img src="https://placehold.co/600x400/13294B/FFFFFF?text=Envirotyping" alt="Envirotyping" class="research-img">
+                    <div class="card-content">
+                        <h3>Envirotyping</h3>
+                        <p>Characterizing growing environments to improve crop adaptation and better understand genotype-by-environment interactions.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="team-section">
+        <div class="container">
+            <h2>Team & Alumni</h2>
+            
+            <p><strong>Current Graduate Supervision</strong></p>
+            <div class="team-list">
+                <div class="team-member">
+                    <div class="member-info">Catherine Gilbert (PhD, Expected 2026)</div>
+                    <div class="member-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-info">Emine Senkardesler (PhD, Expected 2027)</div>
+                    <div class="member-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-info">John Myers (PhD, Expected 2027)</div>
+                    <div class="member-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-info">Graham Bishop (MS, Expected 2026)</div>
+                    <div class="member-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <br>
+            
+            <p><strong>Alumni</strong></p>
+            <div class="team-list">
+                <div class="team-member">
+                    <div class="member-info">Iris Chow (MS Bioinformatics, 2025)</div>
+                    <div class="member-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-info">Germán Mandrini (PhD, 2021)</div>
+                    <div class="member-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-info">Alexandre Barbosa (PhD, 2020)</div>
+                    <div class="member-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-info">Rodrigo Trevisan (PhD, 2020)</div>
+                    <div class="member-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="publications" class="pubs-section">
+        <div class="container">
+            <h2>Selected Publications</h2>
+            
+            <div class="pub-entry">Gilbert, C., Mandrini, G., Ersoz, E., and <span class="highlight-name">N. F. Martin</span>. 2026. The seasonal characterization engine, an application for describing environment from the perspective of crop development. SoftwareX 33: 102477. <a href="https://doi.org/10.1016/j.softx.2025.102477">doi:10.1016/j.softx.2025.102477</a></div>
+
+            <div class="pub-entry">Mandrini, G., Davidson, E. A., Nafziger, E. D., Eagle, A. J., Pittelkow, C. M., Gentry, L. F., Schnitkey, G. D., Guan, K., <span class="highlight-name">N. F. Martin</span>, Chen, Z., Alles, K., and Ciampitti, I. A. 2025. A market-based insurance approach aligns environmental and economic outcomes in maize nitrogen management. Communications Earth & Environment 7: 26. <a href="https://doi.org/10.1038/s43247-025-03008-3">doi:10.1038/s43247-025-03008-3</a></div>
+
+            <div class="pub-entry">Pavlovic, P., Colquhoun, J. B., Korres, N. E., Landau, C. A., Liu, R., Lowry, C. J., <span class="highlight-name">N. F. Martin</span>, and others. 2025. Associations among weed communities, management practices, and environmental factors in U.S. snap bean production. PLOS ONE 20(9): e0332925. <a href="https://doi.org/10.1371/journal.pone.0332925">doi:10.1371/journal.pone.0332925</a></div>
+
+            <div class="pub-entry">Wartha, C. A., Campbell, B. W., Ramasubramanian, V., Nice, L., Brock, A., Cai, G., Eskandari, M. M., Graef, G., Hudson, M. E., Hyten, D., <span class="highlight-name">N. F. Martin</span>, and others. 2025. Genomic analysis and predictive modeling in the Northern Uniform Soybean Tests. Crop Science 65(5): e70138. <a href="https://doi.org/10.1002/csc2.70138">doi:10.1002/csc2.70138</a></div>
+
+            <div class="pub-entry">Abdala, L. J., Tamagno, S., Ruiz, A., Schwalbert, R. A., Correndo, A. A., and <span class="highlight-name">N. F. Martin</span>. 2025. Yield environment changes the ranking of soybean genotypes. Field Crops Research 321: 109661. <a href="https://doi.org/10.1016/j.fcr.2024.109661">doi:10.1016/j.fcr.2024.109661</a></div>
+
+            <div class="pub-entry">Alesso, C. A., and <span class="highlight-name">N. F. Martin</span>. 2024. Spatial and temporal variability of corn response to nitrogen and seed rates. Agronomy Journal 116(3): 897–916. <a href="https://doi.org/10.1002/agj2.21471">doi:10.1002/agj2.21471</a></div>
+
+            <div class="pub-entry">Gilbert, C., and <span class="highlight-name">N. F. Martin</span>. 2024. Using agro-ecological zones to improve the representation of a multi-environment trial of soybean varieties. Frontiers in Plant Science 15: 1310461. <a href="https://doi.org/10.3389/fpls.2024.1310461">doi:10.3389/fpls.2024.1310461</a></div>
+
+            <div class="pub-entry">Pérez, O., Diers, B. W., and <span class="highlight-name">N. F. Martin</span>. 2024. Maturity Prediction in Soybean Breeding Using Aerial Images and the Random Forest Machine Learning Algorithm. Remote Sensing 16(23): 4343. <a href="https://doi.org/10.3390/rs16234343">doi:10.3390/rs16234343</a></div>
+
+            <div class="pub-entry">Marcillo, G. S., Thapa, R., Mirsky, S. B., and <span class="highlight-name">N. F. Martin</span>. 2024. The nitrogen value of cover crops: How much N can cover crops replace? Agricultural & Environmental Letters 9(2): e70006. <a href="https://doi.org/10.1002/ael2.70006">doi:10.1002/ael2.70006</a></div>
+
+            <div class="pub-entry">Li, N., Bullock, D. S., Butts-Wilmsmeyer, C. J., Gentry, L., Goodwin, G., Han, J., Kleczweski, N. M., <span class="highlight-name">Martín, N. F.</span>, Paulausky, P., Pistorius, P., Seiter, N. J., Schroeder, N. E., and Margenot, A. J. 2023. Distinct soil health indicators are associated with variation in maize yield and tile drain nitrate losses. Soil Science Society of America Journal 87(6): 1332–1347. <a href="https://doi.org/10.1002/saj2.20586">doi:10.1002/saj2.20586</a></div>
+
+            <div class="pub-entry">Mandrini, G., Archontoulis, S. V., Pittelkow, C. M., Mieno, T., and <span class="highlight-name">N. F. Martin</span>. 2022. Tradeoffs between profit, yield, and the environmental footprint of different nitrogen regulations in the U.S. Midwest. Frontiers in Sustainable Food Systems 6: 868018. <a href="https://doi.org/10.3389/fsufs.2022.868018">doi:10.3389/fsufs.2022.868018</a></div>
+
+            <div class="pub-entry">Trevisan, R. G., <span class="highlight-name">N. F. Martin</span>, Fonteyne, S., Verhulst, N., Dorado Betancourt, H. A., Jimenez, D., and Gardeazabal, A. 2022. Multiyear maize management dataset collected in Chiapas, Mexico. Data in Brief 42: 107837. <a href="https://doi.org/10.1016/j.dib.2022.107837">doi:10.1016/j.dib.2022.107837</a></div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-content">
+            <div>
+                <h3>Nicolas F. Martin</h3>
+                <p>Associate Professor<br>Department of Crop Sciences<br>University of Illinois Urbana-Champaign</p>
+                <div class="footer-links">
+                    <a href="mailto:nfmartin@illinois.edu">nfmartin@illinois.edu</a>
+                    <a href="https://www.linkedin.com/in/nicolas-martin-ph-d-12a2b82b">LinkedIn</a>
+                    <a href="https://orcid.org/0000-0002-1587-665X">ORCID</a>
+                </div>
+            </div>
+            <div class="affiliations">
+                <p><a href="https://digitalag.illinois.edu/" style="color:white; text-decoration:none;">Center of Digital Agriculture</a></p>
+                <p><a href="https://www.ncsa.illinois.edu/" style="color:white; text-decoration:none;">National Center of Supercomputing Applications</a></p>
+                <p><a href="https://clacs.illinois.edu/" style="color:white; text-decoration:none;">Center for Latin American and Caribbean Studies</a></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
