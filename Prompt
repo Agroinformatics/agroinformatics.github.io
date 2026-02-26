@@ -1,0 +1,88 @@
+You are my technical setup assistant. Goal: set up a NEW Quarto website published on GitHub Pages using VS Code, while keeping my old HTML website as a separate archived repo (Option B).
+
+CONTEXT / CONSTRAINTS
+- I am a beginner with VS Code and Git.
+- I want two GitHub repos:
+  1) OLD HTML archive repo (frozen snapshot): “agroinformatics-html-archive” (or similar)
+  2) NEW Quarto website repo (published on GitHub Pages): choose the correct repo naming strategy depending on whether I want:
+     A) User/Org site: <username>.github.io (publishes at https://<username>.github.io/)
+     OR
+     B) Project site: <repo-name> (publishes at https://<username>.github.io/<repo-name>/)
+- I want the Quarto website to be easy to maintain: preview locally, then render, then push.
+
+YOUR TASK
+Give me an exact, ordered checklist with:
+1) What to install (Quarto, VS Code extensions, Git) and how to verify each install.
+2) Exact VS Code steps (menus + terminal commands) to create a Quarto website project.
+3) Exact GitHub steps to create the repo(s) and enable GitHub Pages.
+4) A minimal Quarto site scaffold that works immediately (files + contents).
+5) The “daily workflow” commands (preview, render, commit, push).
+6) Troubleshooting for the most common errors (Pages not updating, 404, wrong branch/folder, base URL issues).
+
+ASSUME
+- I am on macOS (Intel) with terminal available inside VS Code.
+- If Windows steps differ, add a short Windows note when needed.
+- Use Quarto output-dir: docs so GitHub Pages can deploy from /docs.
+- Do NOT use Jekyll; ensure .nojekyll is handled appropriately.
+
+DELIVERABLE FORMAT
+- Use sections with headings.
+- Use exact terminal commands in code blocks.
+- When there is a choice (user site vs project site), provide both and tell me how to decide, but do not ask questions—make a default recommendation and proceed.
+
+TECHNICAL STEPS TO INCLUDE (MANDATORY)
+A) Install + verify
+- Show how to verify Quarto: `quarto --version`
+- Show how to verify Git: `git --version`
+
+B) Create local Quarto site folder + scaffold
+- In VS Code terminal:
+  - create folder
+  - `quarto create project website .`
+  - create `_quarto.yml`, `index.qmd`, `research/index.qmd`, `teaching/index.qmd`, `cv.qmd`
+  - set `project: output-dir: docs`
+- Show local preview:
+  - `quarto preview`
+- Show render:
+  - `quarto render`
+
+C) Initialize Git and connect remote
+- `git init`
+- `git add -A`
+- `git commit -m "Initial Quarto site"`
+- `git branch -M main`
+- `git remote add origin <REMOTE_URL>`
+- `git push -u origin main`
+
+D) GitHub Pages configuration
+- Settings → Pages → Deploy from a branch → Branch: main → Folder: /docs
+- Mention how long it may take to propagate, but do not give time estimates; instead tell me how to confirm it’s deployed (Actions tab / Pages status).
+
+E) Base URL correctness
+- Explain how Quarto handles links for:
+  - User/Org site: base is "/"
+  - Project site: base is "/<repo-name>/"
+- Provide the correct `_quarto.yml` snippet for each case (especially `website: site-url:` and (if needed) `website: repo-url:`). Keep it minimal and correct.
+
+F) Second repo: old HTML archive
+- Steps to create the archive repo
+- How to push the old HTML snapshot there
+- How to mark it as “Archived” in GitHub (optional but recommended)
+- Confirm it does NOT affect the Quarto site
+
+MINIMAL FILE CONTENTS (INCLUDE EXACT TEXT)
+1) `_quarto.yml` (for a project site, since that’s most common)
+2) `index.qmd` with an About section and links to Teaching/Research/CV
+3) `teaching/index.qmd` with placeholder course list
+4) `research/index.qmd` with placeholder sections
+5) `cv.qmd` placeholder
+
+TROUBLESHOOTING (INCLUDE)
+- 404 root vs /<repo>/ mismatch
+- Pages publishing from wrong folder
+- Forgot to commit docs/
+- `quarto` not found in terminal
+- Links broken due to site-url/base path
+- Using a custom domain (optional note)
+
+IMPORTANT: Be direct, procedural, and precise. No fluff.
