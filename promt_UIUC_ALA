@@ -1,0 +1,355 @@
+You are my technical setup assistant.
+
+GOAL
+Create a NEW academic website using Quarto and GitHub Pages as a PROJECT SITE hosted at:
+
+https://agroinformatics.github.io/agroinformatics/
+
+I want to keep my OLD HTML website preserved separately as an archived repository.
+
+I am a beginner with VS Code and Git. Provide exact procedural instructions and working file contents.
+
+------------------------------------------------------------
+ARCHITECTURE REQUIREMENTS
+------------------------------------------------------------
+
+Repository strategy (Option B):
+
+1) Archive repository
+   agroinformatics-html-archive
+   → contains frozen legacy HTML site
+   → optional GitHub Archive mode enabled
+
+2) New Quarto website repository
+   agroinformatics
+   → published via GitHub Pages
+   → deploy from main branch /docs folder
+
+------------------------------------------------------------
+DESIGN REQUIREMENTS (MANDATORY)
+------------------------------------------------------------
+
+Adopt structure inspired by:
+Atlas of Living Australia Labs
+https://github.com/AtlasOfLivingAustralia/ala-labs
+
+Key ideas to replicate:
+- hero banner injected via include-in-header
+- homepage-specific CSS
+- calm editorial layout
+- card/grid listings
+- whitespace-first academic design
+
+Visual identity:
+- UIUC palette:
+    Illini Blue  #13294B
+    Illini Orange #FF5F05
+- Typography:
+    Montserrat → headings
+    Source Sans 3 → body
+- Fonts loaded via Google Fonts (practical approach)
+
+Website must support:
+- automatic research project listings
+- automatic teaching material listings
+- easy image replacement
+- minimal HTML editing later
+
+------------------------------------------------------------
+STEP 1 — INSTALL SOFTWARE
+------------------------------------------------------------
+
+Install Quarto CLI.
+
+Verify:
+    quarto --version
+
+Verify Git:
+    git --version
+
+If missing on macOS:
+    xcode-select --install
+
+Install VS Code extensions:
+- Quarto
+- GitHub Pull Requests and Issues
+
+Restart VS Code after install.
+
+------------------------------------------------------------
+STEP 2 — CREATE GITHUB REPOSITORIES
+------------------------------------------------------------
+
+Create repository:
+    agroinformatics-html-archive
+
+Create repository:
+    agroinformatics
+
+Do NOT enable GitHub Pages yet.
+
+------------------------------------------------------------
+STEP 3 — PUSH OLD HTML SITE TO ARCHIVE
+------------------------------------------------------------
+
+Open old HTML folder in VS Code.
+
+Run:
+
+git init
+git add -A
+git commit -m "Archive legacy HTML site"
+git branch -M main
+git remote add origin https://github.com/agroinformatics/agroinformatics-html-archive.git
+git push -u origin main
+
+(Optional)
+GitHub → Settings → Archive repository.
+
+------------------------------------------------------------
+STEP 4 — CREATE NEW QUARTO WEBSITE
+------------------------------------------------------------
+
+In VS Code terminal:
+
+cd ~/Desktop
+mkdir agroinformatics
+cd agroinformatics
+
+Create site scaffold:
+
+quarto create project website .
+
+Create folders:
+
+mkdir -p research/projects
+mkdir -p teaching/cpsc444
+mkdir -p assets/images
+mkdir -p assets
+
+------------------------------------------------------------
+STEP 5 — GLOBAL BRANDING (UIUC + ALA STYLE)
+------------------------------------------------------------
+
+Create file: assets/fonts.html
+
+(load Montserrat + Source Sans 3 from Google Fonts)
+
+Create file: _brand.yml
+
+Define typography:
+- base: Source Sans 3
+- headings: Montserrat
+
+Define palette:
+illini-blue: #13294B
+illini-orange: #FF5F05
+
+Create file: assets/theme.scss
+
+Implement:
+- minimalist navbar
+- Illinois hover accent
+- card borders
+- whitespace layout
+- section-band containers
+- ALA-style calm typography
+
+------------------------------------------------------------
+STEP 6 — QUARTO CONFIGURATION
+------------------------------------------------------------
+
+Create _quarto.yml:
+
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Agroinformatics Lab"
+  site-url: "https://agroinformatics.github.io/agroinformatics/"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research/index.qmd
+        text: Research
+      - href: teaching/index.qmd
+        text: Teaching
+      - href: cv.qmd
+        text: CV
+
+format:
+  html:
+    theme:
+      - cosmo
+      - assets/theme.scss
+    include-in-header:
+      - assets/fonts.html
+    smooth-scroll: true
+    anchor-sections: true
+
+brand: _brand.yml
+
+------------------------------------------------------------
+STEP 7 — ALA-STYLE HOMEPAGE
+------------------------------------------------------------
+
+Create index.qmd.
+
+Requirements:
+- toc disabled
+- page-layout full
+- include hero.html
+- homepage-specific CSS
+
+Create:
+assets/hero.html
+→ hero container with overlay image + title + subtitle
+
+Create:
+assets/index.css
+→ gradient hero background
+→ responsive layout
+→ centered content width
+
+Homepage sections:
+- About
+- Research
+- Teaching
+- Contact
+
+Each inside `.section-band`.
+
+------------------------------------------------------------
+STEP 8 — SELF-UPDATING RESEARCH LISTING
+------------------------------------------------------------
+
+Each project = one file.
+
+Structure:
+
+research/
+   index.qmd
+   projects/
+      digital-twin.qmd
+      fieldledger.qmd
+
+Example project:
+
+---
+title: Digital Twin Agriculture
+image: ../../assets/images/digital_twin.jpg
+categories: [Modeling]
+---
+
+Short description.
+
+Research index.qmd:
+
+---
+title: Research
+listing:
+  contents: projects
+  type: grid
+---
+
+New file automatically appears as card.
+
+------------------------------------------------------------
+STEP 9 — TEACHING STRUCTURE
+------------------------------------------------------------
+
+teaching/index.qmd lists courses.
+
+Each lecture:
+teaching/cpsc444/lecture01.qmd
+
+Later supports:
+- slides
+- notes
+- PDFs
+from one source.
+
+------------------------------------------------------------
+STEP 10 — LOCAL DEVELOPMENT
+------------------------------------------------------------
+
+Preview site:
+
+quarto preview
+
+Live reload enabled.
+
+------------------------------------------------------------
+STEP 11 — BUILD FOR DEPLOYMENT
+------------------------------------------------------------
+
+quarto render
+touch docs/.nojekyll
+
+Confirm:
+docs/index.html exists.
+
+------------------------------------------------------------
+STEP 12 — CONNECT TO GITHUB
+------------------------------------------------------------
+
+git init
+git add -A
+git commit -m "Initial Quarto site"
+git branch -M main
+git remote add origin https://github.com/agroinformatics/agroinformatics.git
+git push -u origin main
+
+------------------------------------------------------------
+STEP 13 — ENABLE GITHUB PAGES
+------------------------------------------------------------
+
+GitHub → agroinformatics repo:
+
+Settings → Pages
+
+Deploy from branch:
+main
+/docs
+
+Site URL:
+
+https://agroinformatics.github.io/agroinformatics/
+
+------------------------------------------------------------
+DAILY WORKFLOW
+------------------------------------------------------------
+
+Work:
+quarto preview
+
+Publish:
+quarto render
+git add -A
+git commit -m "Update site"
+git push
+
+------------------------------------------------------------
+TROUBLESHOOTING
+------------------------------------------------------------
+
+404 error:
+Project site must include repo name.
+
+Broken links:
+Check site-url matches deployment path.
+
+Fonts missing:
+Confirm fonts.html included.
+
+Pages not updating:
+Confirm docs/ committed.
+
+Quarto missing:
+Restart VS Code.
+
+------------------------------------------------------------
+END
+------------------------------------------------------------
