@@ -1,0 +1,393 @@
+You are my technical setup assistant. Goal: set up a NEW Quarto website as a GitHub Pages PROJECT SITE hosted at:
+
+  https://agroinformatics.github.io/<REPO_NAME>/
+
+I also keep my old HTML website as a separate archived GitHub repo (Option B). I am a beginner with VS Code and Git. Provide exact procedures and copy/paste file contents.
+
+DESIGN REQUIREMENTS (MANDATORY)
+- ALA Labs-inspired aesthetic: clean hero, whitespace, large headings, simple nav, card grids for sections.
+- UIUC brand-inspired palette: Illini Blue and Illini Orange as core colors (use hex codes).
+- Practical font loading: Montserrat for headings, Source Sans 3 for body via Google Fonts.
+- Quarto theming using:
+  - `_brand.yml` for palette + typography
+  - `assets/theme.scss` for layout + card styling + nav hover
+  - `assets/fonts.html` to load fonts
+- Quarto output to `docs/` and GitHub Pages deploy from `main` + `/docs`
+- Ensure `docs/.nojekyll` exists
+
+ASSUMPTIONS
+- macOS Intel
+- VS Code terminal available
+- I can run commands but want them spelled out
+
+DELIVERABLE FORMAT
+- Ordered checklist with headings
+- Terminal commands in code blocks
+- Exact file contents for all required files
+- Troubleshooting section
+
+========================================================
+STEP 1 — INSTALL + VERIFY (ONE TIME)
+========================================================
+A) Install Quarto CLI and verify:
+  quarto --version
+
+B) Verify Git:
+  git --version
+If missing on macOS:
+  xcode-select --install
+
+C) VS Code extensions:
+- Quarto
+- (Optional) GitHub Pull Requests and Issues
+
+========================================================
+STEP 2 — CREATE TWO GITHUB REPOS (OPTION B)
+========================================================
+Create:
+1) agroinformatics-html-archive (public)
+2) <REPO_NAME> (public)  <-- this will be the Quarto project site
+
+========================================================
+STEP 3 — PUSH OLD HTML TO ARCHIVE REPO
+========================================================
+In VS Code open the old HTML folder and run:
+  git init
+  git add -A
+  git commit -m "Archive old HTML site snapshot"
+  git branch -M main
+  git remote add origin https://github.com/agroinformatics/agroinformatics-html-archive.git
+  git push -u origin main
+(Optional) Archive the repo in GitHub settings.
+
+========================================================
+STEP 4 — CREATE NEW QUARTO PROJECT LOCALLY
+========================================================
+In VS Code terminal:
+  cd ~/Desktop
+  mkdir <REPO_NAME>
+  cd <REPO_NAME>
+  quarto create project website .
+
+Create folders:
+  mkdir -p research teaching assets
+
+========================================================
+STEP 5 — ADD UIUC + ALA-INSPIRED THEME FILES (MANDATORY)
+========================================================
+
+1) Create: assets/fonts.html
+----- BEGIN assets/fonts.html -----
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+----- END assets/fonts.html -----
+
+2) Create: _brand.yml
+(Define UIUC palette + typography)
+----- BEGIN _brand.yml -----
+brand:
+  typography:
+    fonts:
+      - family: "Montserrat"
+        source: google
+      - family: "Source Sans 3"
+        source: google
+    base:
+      family: "Source Sans 3"
+      size: 1rem
+      line-height: 1.6
+    headings:
+      family: "Montserrat"
+      weight: 700
+    link:
+      weight: 600
+
+  color:
+    palette:
+      illini-blue: "#13294B"
+      illini-orange: "#FF5F05"
+      ink: "#1F2937"
+      muted: "#6B7280"
+      paper: "#FFFFFF"
+      fog: "#F6F7F9"
+      border: "#E5E7EB"
+
+    foreground: illini-blue
+    background: paper
+    primary: illini-blue
+    secondary: illini-orange
+----- END _brand.yml -----
+
+3) Create: assets/theme.scss
+(ALA Labs-inspired: whitespace, hero, simple nav, card grids, subtle borders, Illinois hover accent)
+----- BEGIN assets/theme.scss -----
+$illini-blue: #13294B;
+$illini-orange: #FF5F05;
+$fog: #F6F7F9;
+$border: #E5E7EB;
+
+body {
+  color: $illini-blue;
+}
+
+a {
+  color: $illini-blue;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+a:hover { color: $illini-orange; }
+
+/* Minimal navbar */
+.navbar {
+  border-bottom: 1px solid $border;
+}
+.navbar .navbar-brand,
+.navbar a.nav-link {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+.navbar a.nav-link:hover { color: $illini-orange !important; }
+
+/* Editorial headings like ALA Labs */
+h1, h2, h3 { letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.3rem, 3.2vw, 3.2rem); margin-top: 0.4rem; }
+h2 { margin-top: 2.2rem; }
+
+/* Hero block */
+.hero {
+  padding: 1.2rem 0 0.4rem 0;
+}
+.hero .subtitle {
+  font-size: 1.15rem;
+  color: rgba(19, 41, 75, 0.80);
+  max-width: 60rem;
+}
+
+/* Soft section bands */
+.section-band {
+  background: $fog;
+  border: 1px solid $border;
+  border-radius: 18px;
+  padding: 1.25rem 1.25rem;
+  margin: 1.25rem 0;
+}
+
+/* Card feel for listings/grids */
+.card, .quarto-grid-item, .quarto-listing-card {
+  border: 1px solid $border !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+}
+.card:hover, .quarto-grid-item:hover, .quarto-listing-card:hover {
+  border-color: rgba(255, 95, 5, 0.35) !important;
+}
+----- END assets/theme.scss -----
+
+========================================================
+STEP 6 — CONFIGURE QUARTO SITE (PROJECT SITE BASE URL)
+========================================================
+Create/replace: _quarto.yml with EXACT CONTENT:
+
+----- BEGIN _quarto.yml -----
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Agroinformatics Lab"
+  site-url: "https://agroinformatics.github.io/<REPO_NAME>/"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research/index.qmd
+        text: Research
+      - href: teaching/index.qmd
+        text: Teaching
+      - href: cv.qmd
+        text: CV
+
+format:
+  html:
+    theme:
+      - cosmo
+      - assets/theme.scss
+    include-in-header:
+      - assets/fonts.html
+    toc: true
+    smooth-scroll: true
+    anchor-sections: true
+
+brand: _brand.yml
+----- END _quarto.yml -----
+
+========================================================
+STEP 7 — CREATE CONTENT PAGES WITH ALA-LIKE HOME STRUCTURE
+========================================================
+
+1) index.qmd (hero + section bands + cards placeholder)
+----- BEGIN index.qmd -----
+---
+title: ""
+---
+
+::: {.hero}
+# Agroinformatics Lab
+
+::: {.subtitle}
+We develop reproducible workflows for spatial analytics, on-farm experimentation, crop modeling, and agricultural data systems that support resilient decision-making.
+:::
+:::
+
+::: {.section-band}
+## About {#about}
+Short paragraph describing the lab mission and what kinds of data, models, and field systems you work with.
+:::
+
+::: {.section-band}
+## Research {#research}
+- Spatial analytics and geospatial data integration
+- On-farm experimentation and precision agriculture
+- Crop modeling and envirotyping
+- Data systems for digital agriculture
+
+[Go to Research →](research/index.qmd)
+:::
+
+::: {.section-band}
+## Teaching {#teaching}
+- CPSC 241 — Intro to Applied Statistics
+- CPSC 444 — Spatial Analytics
+
+[Go to Teaching →](teaching/index.qmd)
+:::
+
+::: {.section-band}
+## Contact {#contact}
+Department of Crop Sciences, University of Illinois Urbana–Champaign
+:::
+----- END index.qmd -----
+
+2) research/index.qmd
+----- BEGIN research/index.qmd -----
+---
+title: "Research"
+---
+
+## Themes
+- Spatial analytics and geospatial data integration
+- On-farm experimentation and precision agriculture
+- Crop modeling and envirotyping
+- Data systems for digital agriculture
+
+## Projects
+(Coming soon)
+----- END research/index.qmd -----
+
+3) teaching/index.qmd
+----- BEGIN teaching/index.qmd -----
+---
+title: "Teaching"
+---
+
+## Courses
+- CPSC 241 — Intro to Applied Statistics
+- CPSC 444 — Spatial Analytics
+
+## Materials
+This section will host lecture notes, slides, and handouts built with Quarto.
+----- END teaching/index.qmd -----
+
+4) cv.qmd
+----- BEGIN cv.qmd -----
+---
+title: "Curriculum Vitae"
+---
+
+(Coming soon)
+----- END cv.qmd -----
+
+========================================================
+STEP 8 — PREVIEW LOCALLY, RENDER, ENSURE NOJEKYLL
+========================================================
+Preview:
+  quarto preview
+Stop with Ctrl+C.
+
+Render:
+  quarto render
+
+Ensure no Jekyll:
+  touch docs/.nojekyll
+
+Confirm build output exists:
+  ls docs
+(Should include index.html)
+
+========================================================
+STEP 9 — GIT INIT, CONNECT REMOTE, PUSH
+========================================================
+  git init
+  git add -A
+  git commit -m "Initial Quarto site with UIUC palette + ALA-inspired layout"
+  git branch -M main
+  git remote add origin https://github.com/agroinformatics/<REPO_NAME>.git
+  git push -u origin main
+
+========================================================
+STEP 10 — ENABLE GITHUB PAGES FOR PROJECT SITE
+========================================================
+In GitHub repo <REPO_NAME>:
+- Settings → Pages
+- Source: Deploy from a branch
+- Branch: main
+- Folder: /docs
+Save
+
+Open:
+  https://agroinformatics.github.io/<REPO_NAME>/
+
+========================================================
+DAILY WORKFLOW
+========================================================
+Work locally:
+  quarto preview
+
+Publish updates:
+  quarto render
+  touch docs/.nojekyll
+  git add -A
+  git commit -m "Update site"
+  git push
+
+========================================================
+TROUBLESHOOTING
+========================================================
+1) 404 error
+- Project site URL must include repo name:
+  https://agroinformatics.github.io/<REPO_NAME>/
+- Confirm Pages: main + /docs
+
+2) CSS or fonts not loading
+- Confirm `_quarto.yml` includes:
+  include-in-header: assets/fonts.html
+  theme includes assets/theme.scss
+- Re-render + push.
+
+3) Links wrong / navigation broken
+- Confirm site-url includes trailing slash and repo name.
+- Re-render.
+
+4) `quarto` not found
+- Restart VS Code
+- Recheck `quarto --version`
+
+5) Pages not updating
+- Ensure `docs/` is committed and pushed.
+- Check:
+  git status
+  ls docs
+========================================================
+END
+========================================================
